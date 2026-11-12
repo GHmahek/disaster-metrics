@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Real-Time Flood Disaster Assessment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/frontend/css/style.css" />
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-icon">🌊</span>
+      <div class="logo-text">
+        <span class="logo-title">Disaster Metrics</span>
+      </div>
+    </div>
+
+    <nav>
+      <a class="active">Dashboard</a>
+      <a>Weather</a>
+      <a>Map</a>
+      <a>Prediction</a>
+      <a>Insights</a>
+      <a>Graphs</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- TOP ROW -->
+    <section class="top-row">
+
+      <!-- Weather Card -->
+      <div class="card">
+        <h3>⚡ Live Weather</h3>
+        <p id="weather-text">—</p>
+        <div class="weather-input">
+          <input id="weather-city" placeholder="City (eg. Indore)" />
+          <button id="btn-weather">Fetch</button>
+        </div>
+      </div>
+
+      <!-- Prediction -->
+      <div class="card">
+        <h3>🔮 Prediction</h3>
+
+        <div class="slider-group">
+          <label>
+            Monsoon Intensity <span id="val-monsoon" class="slider-value">5</span>
+          </label>
+          <input id="slider-monsoon" type="range" min="0" max="20" value="5" />
+        </div>
+
+        <div class="slider-group">
+          <label>
+            Urbanization <span id="val-urban" class="slider-value">5</span>
+          </label>
+          <input id="slider-urban" type="range" min="0" max="20" value="5" />
+        </div>
+
+        <div class="slider-group">
+          <label>
+            Dams Quality <span id="val-dams" class="slider-value">5</span>
+          </label>
+          <input id="slider-dams" type="range" min="0" max="20" value="5" />
+        </div>
+
+        <button id="btn-predict" class="primary">Run Prediction</button>
+      </div>
+
+      <!-- Insights -->
+      <div class="card">
+        <h3>📊 Model Insights</h3>
+        <ul class="insights-list">
+          <li>MonsoonIntensity strongly influences flood probability.</li>
+          <li>Urbanization & poor drainage increase flood risk.</li>
+          <li>Dams reduce potential flood impact significantly.</li>
+        </ul>
+      </div>
+
+      <!-- Flood Alert -->
+      <div class="card alert-card">
+        <h3>🚨 Flood Alert</h3>
+
+        <div class="gauge-wrapper">
+          <canvas id="floodGauge"></canvas>
+        </div>
+
+        <p id="alert-status" class="alert-status">Waiting for data...</p>
+        <p id="alert-detail" class="alert-detail">Fetch weather + run prediction to see live flood alert.</p>
+      </div>
+
+    </section>
+
+    <!-- MIDDLE ROW -->
+    <section class="middle-row">
+
+      <!-- LEFT: Flood Map -->
+      <div class="card big-card map-card">
+        <h3>🗺 Flood Map</h3>
+        <div id="map"></div>
+      </div>
+
+      <!-- RIGHT: Graphs -->
+      <div class="card big-card graphs-card">
+        <h3>📈 Flood Data Graphs</h3>
+        <div class="graph-box"><canvas id="graph-monsoon"></canvas></div>
+        <div class="graph-box"><canvas id="graph-urban"></canvas></div>
+        <div class="graph-box"><canvas id="graph-dams"></canvas></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FLOATING CHAT BUTTON -->
+  <div id="chat-button">💬</div>
+
+  <!-- CHAT POPUP -->
+  <div id="chat-popup">
+    <div class="chat-header">
+      Flood Assistant
+      <span id="chat-close">✖</span>
+    </div>
+
+    <div id="chat-messages"></div>
+
+    <div class="chat-input-box">
+      <input id="chat-input" type="text" placeholder="Ask about safety, evacuation routes, floods..." />
+      <button id="chat-send">Send</button>
+    </div>
+  </div>
+
+  <!-- MAIN JS -->
+  <script src="/frontend/js/app.js"></script>
+
+  <!-- Alert Sound -->
+  <audio id="alertSound" src="/frontend/sounds/alert.mp3" preload="auto"></audio>
+
+</body>
+</html>
